@@ -30,7 +30,6 @@
 
         header {
             padding: 60px 20px 40px;
-            animation: fadeInDown 1s ease-out;
         }
 
         h1 {
@@ -41,7 +40,6 @@
         p.tagline {
             font-size: 1.3rem;
             color: #ccc;
-            animation: fadeIn 2s ease-in;
         }
 
         section {
@@ -52,14 +50,10 @@
             border-radius: 16px;
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        section.visible {
+            /* 👇 changed from opacity 0 / transform 40px */
             opacity: 1;
             transform: translateY(0);
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
 
         .step {
@@ -108,7 +102,6 @@
             margin-top: 60px;
             font-size: 0.9rem;
             color: #aaa;
-            animation: fadeInUp 1s ease-in;
         }
 
         img.qr {
@@ -123,41 +116,6 @@
         img.qr:hover {
             transform: scale(1.1) rotate(2deg);
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-40px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
     </style>
 </head>
@@ -199,41 +157,16 @@
         <h2>Join Us Early</h2>
         <p>Whether you’re a user, a brewery, or an investor, Clink is building a culture you’ll want to be part of.</p>
 
-        <!-- Waitlist Form -->
-        <form onsubmit="joinWaitlist(event)">
-            <input type="email" id="email" placeholder="Enter your email" required>
+        <form name="waitlist" method="POST" data-netlify="true">
+            <input type="email" name="email" placeholder="Enter your email" required>
             <br>
             <input type="submit" value="Join Waitlist">
         </form>
-
-        <p id="confirmation" style="margin-top:15px; color:#d4af37;"></p>
     </section>
 
     <footer>
         &copy; 2025 Clink. All rights reserved.
     </footer>
-
-    <script>
-        // Reveal sections on scroll
-        const sections = document.querySelectorAll("section");
-        window.addEventListener("scroll", () => {
-            sections.forEach(section => {
-                const rect = section.getBoundingClientRect();
-                if (rect.top < window.innerHeight - 100) {
-                    section.classList.add("visible");
-                }
-            });
-        });
-
-        // Waitlist form confirmation
-        function joinWaitlist(e) {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            document.getElementById('confirmation').innerText =
-                `Thanks for joining, ${email}! We'll keep you updated.`;
-            document.getElementById('email').value = "";
-        }
-    </script>
 </body>
 
 </html>
