@@ -50,10 +50,8 @@
             border-radius: 16px;
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
-            /* 👇 changed from opacity 0 / transform 40px */
             opacity: 1;
             transform: translateY(0);
-            transition: opacity 0.8s ease, transform 0.8s ease;
         }
 
         .step {
@@ -157,16 +155,43 @@
         <h2>Join Us Early</h2>
         <p>Whether you’re a user, a brewery, or an investor, Clink is building a culture you’ll want to be part of.</p>
 
-        <form name="waitlist" method="POST" netlify>
+        <!-- Netlify Form -->
+        <form name="waitlist" method="POST" data-netlify="true" id="waitlist-form">
             <input type="email" name="email" placeholder="Enter your email" required>
             <br>
             <input type="submit" value="Join Waitlist">
         </form>
+
+        <!-- Inline confirmation -->
+        <p id="form-response" style="margin-top:15px; color:#d4af37;"></p>
     </section>
 
     <footer>
         &copy; 2025 Clink. All rights reserved.
     </footer>
+
+    <script>
+        const form = document.getElementById("waitlist-form");
+        const responseMsg = document.getElementById("form-response");
+
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+
+            try {
+                await fetch("/", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                responseMsg.textContent = "🎉 Thanks for joining! We'll keep you updated.";
+                form.reset();
+            } catch (error) {
+                responseMsg.textContent = "❌ Oops! Something went wrong. Please try again.";
+            }
+        });
+    </script>
 </body>
 
 </html>
