@@ -1,197 +1,813 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clink – Old School Meets New Connections</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clink – IRL Vibes, Zero Fake Energy ✨</title>
+<link href="https://fonts.googleapis.com/css2?family=Tiempos+Headline:wght@400;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary-bg: #131328;
+  --golden: #d3a663;
+  --golden-light: #ffe6a0;
+  --text-primary: #ffffff;
+  --text-secondary: #c0c0c0;
+  --accent-pink: #ff4fa1;
+  --accent-blue: #00f5ff;
+  --surface: rgba(255,255,255,0.04);
+}
 
-        body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background: linear-gradient(135deg, #0d0d0d 0%, #1e0f1f 40%, #2a1f0f 100%);
-            color: #f5f5f5;
-            line-height: 1.6;
-            text-align: center;
-            padding: 20px;
-            overflow-x: hidden;
-        }
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { 
+  font-family: 'Inter', sans-serif; 
+  background: var(--primary-bg); 
+  color: var(--text-primary); 
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
 
-        h1,
-        h2 {
-            color: #d4af37;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-        }
+/* Progress Tracker - ENHANCED */
+.progress-container {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px;
+  background: rgba(255,255,255,0.1); z-index: 9999; overflow: hidden;
+}
 
-        header {
-            padding: 60px 20px 40px;
-        }
+.progress-bar {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--golden), var(--accent-pink), var(--accent-blue));
+  transition: width 0.1s ease-out; position: relative;
+  box-shadow: 0 0 15px rgba(211,166,99,0.4);
+}
 
-        h1 {
-            font-size: 3.2rem;
-            margin-bottom: 10px;
-        }
+.progress-bar::after {
+  content: ''; position: absolute; top: 0; right: 0; width: 50px; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  animation: shimmer 2s infinite ease-in-out;
+}
 
-        p.tagline {
-            font-size: 1.3rem;
-            color: #ccc;
-        }
+@keyframes shimmer {
+  0% { transform: translateX(-50px); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(50px); opacity: 0; }
+}
 
-        section {
-            max-width: 850px;
-            margin: 50px auto;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
-            opacity: 1;
-            transform: translateY(0);
-        }
+/* Navigation - SMOOTH AF */
+.nav-container {
+  position: fixed; top: 3px; left: 0; right: 0; z-index: 1000;
+  backdrop-filter: blur(20px); background: rgba(19,19,40,0.9);
+  border-bottom: 1px solid rgba(211,166,99,0.2); 
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-        .step {
-            margin: 20px 0;
-            font-size: 1.15rem;
-        }
+nav {
+  max-width: 1200px; margin: 0 auto; padding: 0.6rem 2rem;
+  display: flex; justify-content: center; align-items: center;
+}
 
-        .highlight {
-            color: #d4af37;
-            font-weight: bold;
-        }
+.nav-links {
+  display: flex; list-style: none; gap: 0; align-items: center;
+  background: rgba(255,255,255,0.08); 
+  border-radius: 15px; 
+  padding: 0.3rem;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(211,166,99,0.3);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
 
-        button,
-        input[type="submit"] {
-            background: linear-gradient(90deg, #d4af37, #f7e27e);
-            color: #121212;
-            border: none;
-            padding: 12px 24px;
-            font-size: 1rem;
-            cursor: pointer;
-            border-radius: 8px;
-            margin-top: 15px;
-            transition: all 0.3s ease;
-            font-weight: bold;
-        }
+.nav-links li {
+  position: relative;
+}
 
-        button:hover,
-        input[type="submit"]:hover {
-            transform: scale(1.08);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
-        }
+.nav-links li a {
+  color: var(--text-secondary); font-weight: 600; font-size: 0.85rem; 
+  padding: 0.5rem 1rem; border-radius: 12px; position: relative; 
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: block;
+  white-space: nowrap; overflow: hidden;
+}
 
-        input[type="email"] {
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #666;
-            width: 70%;
-            max-width: 300px;
-            margin-top: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            backdrop-filter: blur(6px);
-        }
+.nav-links li a::before {
+  content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(135deg, var(--golden), var(--accent-pink));
+  border-radius: 12px; transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1); z-index: -1;
+}
 
-        footer {
-            margin-top: 60px;
-            font-size: 0.9rem;
-            color: #aaa;
-        }
+.nav-links li a:hover::before { left: 0; }
+.nav-links li a:hover { 
+  color: var(--text-primary); transform: translateY(-2px) scale(1.03);
+  text-shadow: 0 0 15px rgba(255,255,255,0.4);
+}
 
-        img.qr {
-            margin: 20px 0;
-            width: 120px;
-            height: 120px;
-            border: 2px solid #d4af37;
-            border-radius: 12px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+.cta-btn {
+  background: linear-gradient(135deg, var(--golden), var(--golden-light));
+  padding: 0.5rem 1.2rem; border-radius: 14px; font-weight: 700; font-size: 0.8rem; 
+  border: none; cursor: pointer; color: var(--primary-bg); 
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
+  margin-left: 0.2rem; box-shadow: 0 3px 12px rgba(211,166,99,0.3);
+}
 
-        img.qr:hover {
-            transform: scale(1.1) rotate(2deg);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
-        }
-    </style>
+.cta-btn::before {
+  content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(135deg, var(--accent-pink), var(--accent-blue));
+  transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1); z-index: -1;
+}
+
+.cta-btn:hover::before { left: 0; }
+.cta-btn:hover { 
+  transform: translateY(-2px) scale(1.05); color: var(--text-primary);
+  box-shadow: 0 6px 20px rgba(255,79,161,0.5);
+}
+
+/* Mobile Menu - FANCY ANIMATIONS */
+.mobile-menu-btn {
+  display: none; flex-direction: column; cursor: pointer; padding: 0.6rem; gap: 3px;
+  background: linear-gradient(45deg, var(--surface), rgba(211,166,99,0.1));
+  border: 1px solid rgba(211,166,99,0.3); border-radius: 12px; 
+  backdrop-filter: blur(10px); transition: all 0.3s ease;
+}
+.mobile-menu-btn:hover { 
+  background: linear-gradient(45deg, var(--surface), rgba(211,166,99,0.2)); 
+  transform: scale(1.05); 
+}
+.mobile-menu-btn span {
+  width: 22px; height: 2.5px; background: linear-gradient(45deg, var(--golden), var(--golden-light)); 
+  border-radius: 3px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.mobile-menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.mobile-menu-btn.active span:nth-child(2) { opacity: 0; transform: scale(0); }
+.mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+.mobile-menu {
+  display: none; position: fixed; top: 70px; right: 1rem; width: 280px;
+  background: rgba(19,19,40,0.95); backdrop-filter: blur(25px);
+  border: 1px solid rgba(211,166,99,0.3); border-radius: 20px; 
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3); z-index: 999;
+}
+.mobile-menu::before {
+  content: ''; position: absolute; top: -8px; right: 20px; width:16px; height:16px;
+  background: rgba(19,19,40,0.95); border:1px solid rgba(211,166,99,0.3); 
+  border-bottom:none; border-right:none; transform: rotate(45deg); backdrop-filter: blur(25px);
+}
+.mobile-menu.active { 
+  display:block; 
+  animation: slideInScale 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+@keyframes slideInScale { 
+  from {opacity:0; transform:translateY(-20px) scale(0.9);} 
+  to {opacity:1; transform:translateY(0) scale(1);} 
+}
+
+.mobile-menu ul { list-style:none; padding:1.5rem 1rem 1rem; display:flex; flex-direction:column; gap:0.5rem; }
+.mobile-menu ul li { 
+  position: relative; overflow:hidden; 
+  animation: mobileItemSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+.mobile-menu ul li:nth-child(1) { animation-delay: 0.1s; }
+.mobile-menu ul li:nth-child(2) { animation-delay: 0.2s; }
+.mobile-menu ul li:nth-child(3) { animation-delay: 0.3s; }
+.mobile-menu ul li:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes mobileItemSlide {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.mobile-menu ul li::before {
+  content:''; position:absolute; left:0; top:0; width:0; height:100%;
+  background: linear-gradient(90deg, var(--golden), var(--accent-pink)); 
+  border-radius:10px; transition: width 0.3s ease; z-index:-1;
+}
+.mobile-menu ul li:hover::before { width:100%; }
+.mobile-menu ul li a {
+  color: var(--text-secondary); text-decoration:none; font-weight:600; font-size:0.95rem;
+  padding:0.8rem 1rem; border-radius:10px; display:flex; align-items:center; gap:0.8rem; 
+  position:relative; transition: all 0.3s ease;
+}
+.mobile-menu ul li a::before { content:''; font-size:1.2rem; transition: all 0.3s ease; }
+.mobile-menu ul li:nth-child(1) a::before { content:'🎯'; }
+.mobile-menu ul li:nth-child(2) a::before { content:'⚡'; }
+.mobile-menu ul li:nth-child(3) a::before { content:'💎'; }
+.mobile-menu ul li:hover a { color: var(--text-primary); transform: translateX(5px); font-weight: 700; }
+
+.mobile-menu ul li.cta-mobile a {
+  background: none; color: var(--text-secondary); font-weight: 600;
+  padding: 0.8rem 1rem; border-radius: 10px; display: flex; align-items: center; gap: 0.8rem;
+  transition: all 0.3s ease;
+}
+.mobile-menu ul li.cta-mobile a:hover {
+  color: var(--text-primary); transform: translateX(5px); font-weight:700;
+}
+.mobile-menu ul li.cta-mobile a::before { content: '🚀'; font-size:1.2rem; transition: all 0.3s ease; }
+
+.mobile-menu-overlay {
+  display:none; position:fixed; top:0; left:0; right:0; bottom:0; 
+  background: rgba(0,0,0,0.3); backdrop-filter: blur(2px); z-index:998;
+}
+.mobile-menu-overlay.active { display:block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
+/* Container & Header - NO ANIMATIONS */
+.container { 
+  padding:73px 20px 20px; max-width:1200px; margin:auto; position:relative; z-index:1; 
+}
+header { 
+  text-align:center; margin:15px 0 40px; 
+}
+
+header img.logo { 
+  width:220px; max-width:80%; 
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+
+header img.logo:hover { 
+  transform: scale(1.05) rotateZ(1deg); 
+}
+header .tagline { 
+  font-family:'Tiempos Headline', serif; font-size:2rem; font-weight:700; margin-top:1rem; 
+  background: linear-gradient(45deg, var(--golden), var(--accent-pink), var(--accent-blue)); 
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+/* Book Sections - SWIPE IN ANIMATIONS */
+.book-carousel { 
+  display:flex; flex-direction:column; gap:3rem; margin-bottom:3rem; 
+}
+.book {
+  background: var(--surface); backdrop-filter: blur(15px); border-radius:20px; padding:25px 30px;
+  position: relative; overflow:hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+  max-width:700px; margin:0 auto; border:2px solid rgba(211,166,99,0.2);
+  scroll-margin-top: 100px; opacity: 0; transform: translateY(50px);
+}
+
+.book.animate-in {
+  animation: bookSlideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes bookSlideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(50px) scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+}
+
+.book:nth-child(2) { animation-delay: 0.2s; }
+.book:nth-child(3) { animation-delay: 0.4s; }
+
+.book:hover { 
+  transform: translateY(-8px) scale(1.02) rotateX(2deg); 
+  box-shadow: 0 20px 40px rgba(211,166,99,0.2);
+  border-color: rgba(211,166,99,0.4);
+}
+
+.book-header h2 { 
+  font-family:'Tiempos Headline', serif; font-size:2.5rem; text-align:center; 
+  background: linear-gradient(45deg,var(--golden), var(--golden-light)); 
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+  margin-bottom:1rem;
+  animation: titleSlideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+}
+
+@keyframes titleSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.book-divider { 
+  width:100%; height:3px; 
+  background: linear-gradient(90deg,var(--golden), var(--accent-pink), var(--golden)); 
+  border-radius:2px; margin-bottom:2rem; 
+  animation: dividerGrow 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both;
+}
+
+@keyframes dividerGrow {
+  from { width: 0; opacity: 0; }
+  to { width: 100%; opacity: 1; }
+}
+
+.book-content { font-size:1.2rem; line-height:1.8; color:var(--text-secondary); }
+
+.content-item { 
+  display:flex; align-items:flex-start; gap:15px; margin:20px 0; 
+  opacity:0; transform:translateX(-50px); 
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.content-item.animate-in {
+  animation: contentSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.content-item:nth-child(1){ animation-delay:0.7s; }
+.content-item:nth-child(2){ animation-delay:0.8s; }
+.content-item:nth-child(3){ animation-delay:0.9s; }
+.content-item:nth-child(4){ animation-delay:1s; }
+
+@keyframes contentSlideIn { 
+  from { opacity:0; transform:translateX(-50px) rotateY(-5deg); } 
+  to { opacity:1; transform:translateX(0) rotateY(0); } 
+}
+
+.content-item:hover {
+  transform: translateY(-5px);
+}
+
+.content-item .emoji { 
+  font-size:1.6rem; flex-shrink:0; margin-top:3px; 
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.content-item:hover .emoji {
+  transform: scale(1.2) rotateZ(10deg);
+}
+.content-item .text { flex:1; font-weight:500; }
+.highlight { color: var(--golden); font-weight:700; }
+
+/* Join Section - FANCY AF */
+.join-section {
+  background: var(--surface); backdrop-filter: blur(15px); border-radius:24px; 
+  border:2px solid rgba(211,166,99,0.2); padding:3rem; text-align:center; 
+  margin:0 auto 3rem; max-width:700px; scroll-margin-top: 100px;
+  opacity: 0; transform: translateY(50px) scale(0.95);
+}
+
+.join-section.animate-in {
+  animation: joinSectionRise 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes joinSectionRise {
+  from { opacity: 0; transform: translateY(50px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.join-section h2 { 
+  font-family:'Tiempos Headline', serif; font-size:2.8rem; font-weight:900; margin-bottom:1rem; 
+  background: linear-gradient(45deg, var(--golden), var(--golden-light)); 
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  animation: joinTitlePop 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+}
+
+@keyframes joinTitlePop {
+  from { opacity: 0; transform: scale(0.8) rotateX(20deg); }
+  to { opacity: 1; transform: scale(1) rotateX(0); }
+}
+
+.join-section p { 
+  font-size:1.3rem; color: var(--text-secondary); margin-bottom:2rem; font-weight:500; 
+  line-height:1.6;
+  animation: joinTextSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+}
+
+@keyframes joinTextSlide {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.join-section form { 
+  display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; align-items:stretch;
+  animation: formSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
+}
+
+@keyframes formSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+input[type="email"], input[type="submit"] {
+  padding:1rem 1.5rem; border-radius:12px; font-size:1.1rem; font-weight:500; outline:none; 
+  transition:all 0.3s ease;
+}
+input[type="email"] {
+  width:100%; max-width:300px; border:2px solid rgba(211,166,99,0.3); 
+  background: rgba(255,255,255,0.05); color:var(--text-primary);
+}
+input[type="email"]:focus { 
+  border-color: var(--golden); background: rgba(255,255,255,0.1); 
+  transform: translateY(-2px) scale(1.02);
+}
+input[type="submit"] {
+  background: linear-gradient(135deg,var(--golden),var(--golden-light),var(--accent-pink)); 
+  border:none; cursor:pointer; font-weight:800;
+}
+input[type="submit"]:hover { 
+  transform:translateY(-2px) scale(1.05); 
+  background: linear-gradient(135deg,var(--accent-pink),var(--accent-blue),var(--golden-light)); 
+}
+
+/* Footer - SUBTLE ANIMATION */
+footer { 
+  text-align:center; padding:40px 20px; font-size:1rem; color:var(--text-secondary);
+  animation: footerFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) 1s both;
+}
+
+@keyframes footerFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Floating shapes - PRESERVED ORIGINAL */
+.shape { 
+  position:absolute; border-radius:50%; opacity:0.05; 
+  animation: floatShape 20s linear infinite; pointer-events:none; 
+}
+.shape:nth-child(1){ 
+  width:80px; height:80px; background:var(--accent-pink); 
+  top:10%; left:5%; animation-delay:0s; 
+}
+.shape:nth-child(2){ 
+  width:120px; height:120px; background:var(--golden); 
+  top:50%; left:80%; animation-delay:5s; 
+}
+.shape:nth-child(3){ 
+  width:60px; height:60px; background:var(--accent-blue); 
+  top:70%; left:20%; animation-delay:2s; 
+}
+@keyframes floatShape { 
+  0%{transform:translateY(0) translateX(0);} 
+  50%{transform:translateY(-30px) translateX(20px);} 
+  100%{transform:translateY(0) translateX(0);} 
+}
+
+/* Parallax Effect */
+.parallax-element {
+  transition: transform 0.1s ease-out;
+}
+
+/* Responsive - SMOOTH AF */
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .mobile-menu-btn{display:flex; position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);}
+  .container{padding-top:78px;}
+  header { margin:5px 0 30px; }
+  .header .tagline{font-size:1.6rem;}
+  .book-inner,.book{padding:25px; scroll-margin-top: 90px;}
+  .book-header h2{font-size:2rem;}
+  .book-content{font-size:1.1rem;}
+  .join-section{padding:2rem; scroll-margin-top: 90px;}
+  .join-section form{flex-direction:column;gap:1rem;}
+  nav{padding:0.6rem 1rem; min-height: 60px;}
+  input[type="email"],input[type="submit"]{max-width:100%;width:100%;}
+}
+@media(max-width:480px){
+  nav{padding:0.6rem 1rem; min-height: 60px;}
+  .mobile-menu-btn{right: 1rem;}
+}
+</style>
 </head>
-
 <body>
-    <header>
-        <h1>Clink</h1>
-        <p class="tagline">Where Old-School Charm Meets Modern Dating</p>
-    </header>
 
-    <section>
+<!-- Progress Tracker -->
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<div class="nav-container">
+  <nav>
+    <ul class="nav-links">
+      <li><a href="#vision">Our Vision</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#why">Why Clink</a></li>
+      <li><button class="cta-btn">Get Early Access</button></li>
+    </ul>
+    <button class="mobile-menu-btn"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu-overlay"></div>
+  <div class="mobile-menu">
+    <ul>
+      <li><a href="#vision">Our Vision</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#why">Why Clink</a></li>
+      <li class="cta-mobile"><a href="#join">Get Early Access</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="container">
+  <header>
+    <img src="Logo BG.png" alt="Clink Logo" class="logo">
+    <p class="tagline">Where IRL Vibes Meet Zero Fake Energy</p>
+  </header>
+
+  <section class="book-carousel">
+    <!-- Our Vision -->
+    <div class="book parallax-element" id="vision">
+      <div class="book-header">
         <h2>Our Vision</h2>
-        <p>
-            Dating apps made meeting people digital. We’re making it human again.
-            Clink blends <span class="highlight">real-world venues</span> like breweries and cafés
-            with a <span class="highlight">seamless digital connection layer</span>.
-            Send someone a drink, spark a conversation, and take connections offline —
-            where they truly matter.
-        </p>
-    </section>
+        <div class="book-divider"></div>
+      </div>
+      <div class="book-content">
+        <div class="content-item"><span class="emoji">🚀</span><div class="text">Dating apps killed the thrill. Clink brings it back — <span class="highlight">IRL vibes</span>, sparks flying, zero fake energy.</div></div>
+        <div class="content-item"><span class="emoji">☕️</span><div class="text">Cafés, bars, breweries… we put the fun in <span class="highlight">real spots</span> and layer on a digital twist that actually works.</div></div>
+        <div class="content-item"><span class="emoji">💥</span><div class="text">Send a drink, drop a cheeky note, and watch a night turn <span class="highlight">legendary</span>.</div></div>
+      </div>
+    </div>
 
-    <section>
+    <!-- How It Works -->
+    <div class="book parallax-element" id="how">
+      <div class="book-header">
         <h2>How It Works</h2>
-        <div class="step">🍹 <strong>Step 1:</strong> Spot someone you like on the app at your venue.</div>
-        <div class="step">💌 <strong>Step 2:</strong> Send them a drink or a note through Clink.</div>
-        <div class="step">✨ <strong>Step 3:</strong> If they accept, you both connect — online and in person.</div>
-    </section>
+        <div class="book-divider"></div>
+      </div>
+      <div class="book-content">
+        <div class="content-item"><span class="emoji">👀</span><div class="text"><span class="highlight">Step 1:</span> Spot someone cute IRL. Instant butterflies.</div></div>
+        <div class="content-item"><span class="emoji">📩</span><div class="text"><span class="highlight">Step 2:</span> Send a drink, flirty note, or vibe-check message — bold, smooth, totally you.</div></div>
+        <div class="content-item"><span class="emoji">⚡️</span><div class="text"><span class="highlight">Step 3:</span> They're feeling it? Boom — connected. Drinks clink, convos spark, night = <span class="highlight">legendary</span>.</div></div>
+      </div>
+    </div>
 
-    <section>
+    <!-- Why Clink -->
+    <div class="book parallax-element" id="why">
+      <div class="book-header">
         <h2>Why Clink?</h2>
-        <p>
-            ✅ <span class="highlight">Old school meets new</span> – a gesture is worth more than a swipe. <br>
-            ✅ <span class="highlight">Curated crowd</span> – only verified users, better venues. <br>
-            ✅ <span class="highlight">Experiences</span> – beyond profiles, we host mixers, parties & more. <br>
-        </p>
-    </section>
+        <div class="book-divider"></div>
+      </div>
+      <div class="book-content">
+        <div class="content-item"><span class="emoji">🥂</span><div class="text"><span class="highlight">Old school energy, new school moves</span> — forget swiping forever. Real gestures > endless scrolling.</div></div>
+        <div class="content-item"><span class="emoji">🎯</span><div class="text"><span class="highlight">Curated crowd, top spots</span> — verified humans, handpicked venues. No bots, no awkward vibes.</div></div>
+        <div class="content-item"><span class="emoji">🎉</span><div class="text"><span class="highlight">Experiences that slap</span> — mixers, pop-up parties, secret events. Make memories, not just matches.</div></div>
+      </div>
+    </div>
+  </section>
 
-    <section>
-        <h2>Join Us Early</h2>
-        <p>Whether you’re a user, a brewery, or an investor, Clink is building a culture you’ll want to be part of.</p>
+  <section class="join-section parallax-element" id="join">
+    <h2>Join Us Early</h2>
+    <p>Whether you're a user, a brewery, or an investor,<br><span class="highlight">Clink is building a culture you'll want to be part of.</span></p>
+    <form name="waitlist" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="waitlist">
+      <input type="email" name="email" placeholder="Enter your email ✨" required>
+      <input type="submit" value="Join Waitlist 🚀">
+    </form>
+  </section>
 
-        <!-- Netlify Form -->
-        <form name="waitlist" method="POST" id="waitlist-form" netlify>
-            <input type="email" name="email" placeholder="Enter your email" required>
-            <br>
-            <input type="submit" value="Join Waitlist">
-        </form>
+  <footer>
+    &copy; 2025 Clink. All rights reserved. <span class="highlight">Built different 💜</span>
+  </footer>
+</div>
 
-        <!-- Inline confirmation -->
-        <p id="form-response" style="margin-top:15px; color:#d4af37;"></p>
-    </section>
+<div class="shape"></div>
+<div class="shape"></div>
+<div class="shape"></div>
 
-    <footer>
-        &copy; 2025 Clink. All rights reserved.
-    </footer>
+<script>
+// Progress Tracker
+function updateProgressBar() {
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = (scrollTop / docHeight) * 100;
+  document.getElementById('progressBar').style.width = scrollPercent + '%';
+}
 
-    <script>
-        const form = document.getElementById("waitlist-form");
-        const responseMsg = document.getElementById("form-response");
+window.addEventListener('scroll', updateProgressBar);
+window.addEventListener('resize', updateProgressBar);
 
-        form.addEventListener("submit", async function (event) {
-            event.preventDefault();
+// Intersection Observer for animations - FANCY AF
+const observerOptions = {
+  threshold: 0.15,
+  rootMargin: '0px 0px -50px 0px'
+};
 
-            const formData = new FormData(form);
-
-            try {
-                await fetch("/", {
-                    method: "POST",
-                    body: formData,
-                });
-
-                responseMsg.textContent = "🎉 Thanks for joining! We'll keep you updated.";
-                form.reset();
-            } catch (error) {
-                responseMsg.textContent = "❌ Oops! Something went wrong. Please try again.";
-            }
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      // Books animation
+      if (entry.target.classList.contains('book')) {
+        entry.target.classList.add('animate-in');
+        
+        // Animate content items with stagger
+        const contentItems = entry.target.querySelectorAll('.content-item');
+        contentItems.forEach((item, index) => {
+          setTimeout(() => {
+            item.classList.add('animate-in');
+          }, index * 100);
         });
-    </script>
-</body>
+      }
+      
+      // Join section animation
+      if (entry.target.classList.contains('join-section')) {
+        entry.target.classList.add('animate-in');
+      }
+    }
+  });
+}, observerOptions);
 
+// Observe all animatable elements
+document.querySelectorAll('.book, .join-section').forEach(el => {
+  observer.observe(el);
+});
+
+// Parallax Effect - SMOOTH AS BUTTER
+let ticking = false;
+
+function updateParallax() {
+  const scrollTop = window.pageYOffset;
+  
+  document.querySelectorAll('.parallax-element').forEach((element, index) => {
+    const rect = element.getBoundingClientRect();
+    const speed = 0.5 + (index * 0.1); // Different speeds for each element
+    const yPos = -(scrollTop * speed);
+    
+    if (rect.bottom >= 0 && rect.top <= window.innerHeight) {
+      element.style.transform = `translateY(${yPos * 0.1}px)`;
+    }
+  });
+  
+  ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(updateParallax);
+    ticking = true;
+  }
+});
+
+// Enhanced Mobile Menu
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const mobileMenu = document.querySelector('.mobile-menu');
+const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+
+function toggleMobileMenu(){
+  mobileMenuBtn.classList.toggle('active');
+  mobileMenu.classList.toggle('active');
+  mobileMenuOverlay.classList.toggle('active');
+  document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+}
+
+function closeMobileMenu(){
+  mobileMenuBtn.classList.remove('active');
+  mobileMenu.classList.remove('active');
+  mobileMenuOverlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+document.querySelectorAll('.mobile-menu a').forEach(link=>link.addEventListener('click', closeMobileMenu));
+mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+document.addEventListener('keydown', e=>{if(e.key==='Escape' && mobileMenu.classList.contains('active')) closeMobileMenu();});
+
+// Smooth scroll with easing - FASTER
+document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+  anchor.addEventListener('click', function(e){
+    e.preventDefault();
+    const target=document.querySelector(this.getAttribute('href'));
+    if(target) {
+      const headerHeight = document.querySelector('.nav-container').offsetHeight;
+      const elementPosition = target.offsetTop;
+      const offsetPosition = elementPosition - headerHeight - 20;
+      
+      // Faster smooth scroll
+      const startPosition = window.pageYOffset;
+      const distance = offsetPosition - startPosition;
+      const duration = 400; // Reduced from 800ms
+      let start = null;
+      
+      function animation(currentTime) {
+        if (start === null) start = currentTime;
+        const timeElapsed = currentTime - start;
+        const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+        window.scrollTo(0, run);
+        if (timeElapsed < duration) requestAnimationFrame(animation);
+      }
+      
+      function easeInOutCubic(t, b, c, d) {
+        t /= d/2;
+        if (t < 1) return c/2*t*t*t + b;
+        t -= 2;
+        return c/2*(t*t*t + 2) + b;
+      }
+      
+      requestAnimationFrame(animation);
+    }
+  });
+});
+
+// CTA button scroll with same smooth animation - FASTER
+document.querySelector('.cta-btn').addEventListener('click', ()=>{
+  const target = document.getElementById('join');
+  const headerHeight = document.querySelector('.nav-container').offsetHeight;
+  const elementPosition = target.offsetTop;
+  const offsetPosition = elementPosition - headerHeight - 20;
+  
+  const startPosition = window.pageYOffset;
+  const distance = offsetPosition - startPosition;
+  const duration = 400; // Reduced from 800ms
+  let start = null;
+  
+  function animation(currentTime) {
+    if (start === null) start = currentTime;
+    const timeElapsed = currentTime - start;
+    const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+    window.scrollTo(0, run);
+    if (timeElapsed < duration) requestAnimationFrame(animation);
+  }
+  
+  function easeInOutCubic(t, b, c, d) {
+    t /= d/2;
+    if (t < 1) return c/2*t*t*t + b;
+    t -= 2;
+    return c/2*(t*t*t + 2) + b;
+  }
+  
+  requestAnimationFrame(animation);
+});
+
+// Enhanced Navbar behavior
+let lastScrollY = window.scrollY;
+const navContainer = document.querySelector('.nav-container');
+let navTicking = false;
+
+function updateNavbar() {
+  const currentScrollY = window.scrollY;
+  
+  // Add/remove shadow based on scroll
+  if (currentScrollY > 50) {
+    navContainer.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+  } else {
+    navContainer.style.boxShadow = 'none';
+  }
+  
+  // Hide/show navbar
+  if (currentScrollY > lastScrollY && currentScrollY > 100) {
+    navContainer.style.transform = 'translateY(-100%)';
+  } else {
+    navContainer.style.transform = 'translateY(0)';
+  }
+  
+  lastScrollY = currentScrollY;
+  navTicking = false;
+}
+
+window.addEventListener('scroll', () => {
+  if (!navTicking) {
+    requestAnimationFrame(updateNavbar);
+    navTicking = true;
+  }
+});
+
+// Mouse move effects for subtle interactivity
+let mouseX = 0;
+let mouseY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  
+  // Subtle parallax effect on floating shapes
+  document.querySelectorAll('.shape').forEach((shape, index) => {
+    const speed = (index + 1) * 0.0002;
+    const x = (mouseX - window.innerWidth / 2) * speed;
+    const y = (mouseY - window.innerHeight / 2) * speed;
+    
+    shape.style.transform += ` translate(${x}px, ${y}px)`;
+  });
+});
+
+// Add some micro-interactions
+document.querySelectorAll('.content-item').forEach(item => {
+  item.addEventListener('mouseenter', () => {
+    item.style.transform = 'translateY(-5px)';
+  });
+  
+  item.addEventListener('mouseleave', () => {
+    item.style.transform = 'translateY(0)';
+  });
+});
+
+// Form enhancement
+const emailInput = document.querySelector('input[type="email"]');
+const submitBtn = document.querySelector('input[type="submit"]');
+
+emailInput.addEventListener('focus', () => {
+  emailInput.parentElement.style.transform = 'scale(1.02)';
+});
+
+emailInput.addEventListener('blur', () => {
+  emailInput.parentElement.style.transform = 'scale(1)';
+});
+
+submitBtn.addEventListener('click', (e) => {
+  if (emailInput.value) {
+    submitBtn.style.animation = 'pulse 0.3s ease';
+    setTimeout(() => {
+      submitBtn.style.animation = '';
+    }, 300);
+  }
+});
+
+// Add pulse animation for submit button
+const pulseStyle = document.createElement('style');
+pulseStyle.textContent = `
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+`;
+document.head.appendChild(pulseStyle);
+
+console.log('🚀 clink - smooth animations loaded dawg ✨');
+</script>
+
+</body>
 </html>
